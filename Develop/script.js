@@ -22,10 +22,12 @@ function generatePassword() {
   console.log(splitBetween);
 
   var perChar = Math.floor(passLen / splitBetween);
+  var leftOver = passLen % splitBetween;
   console.log(perChar);
+  console.log(leftOver);
 
 
-
+// These functions generate random characters
   function randomLetter() {
     const alphabet = "abcdefghijklmnopqrstuvwxyz";
     return alphabet[Math.floor(Math.random() * alphabet.length)];
@@ -35,26 +37,79 @@ function generatePassword() {
     return symbols[Math.floor(Math.random() * symbols.length)];
   }
 
+// Will generate a password of length [types of characters] * [perChar]
   function makePassword(j) {
-    var generatedPassword = ""
+    var password = "";
     for (i = 0; i < j; i++) {
       if (passUpp) {
-        generatedPassword = generatedPassword.concat(randomLetter().toUpperCase());
+        password = password.concat(randomLetter().toUpperCase());
       }
       if (passLow) {
-        generatedPassword = generatedPassword.concat(randomLetter());
+        password = password.concat(randomLetter());
       }
       if (passNum) {
-        generatedPassword = generatedPassword.concat(Math.floor(Math.random() * 10) );
+        password = password.concat(Math.floor(Math.random() * 10) );
       }
       if (passSpe) {
-        generatedPassword = generatedPassword.concat(randomSymbol());
+        password = password.concat(randomSymbol());
       }
     }
-    return generatedPassword;
+    return password;
   }
-  console.log(makePassword(perChar));
 
+  //Finishes off the password to get to desired length
+  function finishPassword(j) {
+    var password = "";
+    if (j != 0) {
+      if (passUpp) {
+        password = password.concat(randomLetter().toUpperCase());
+      }
+      j--;
+    }
+    if (j != 0) {
+      if (passLow) {
+        password = password.concat(randomLetter());
+      }
+      j--;
+    }
+    if (j != 0) {
+      if (passNum) {
+        password = password.concat(Math.floor(Math.random() * 10) );
+      }
+      j--;
+    }
+    if (j != 0) {
+      if (passSpe) {
+        password = password.concat(randomSymbol());
+      }
+      j--;
+    }
+    return password;
+  }    
+  
+  console.log(makePassword(perChar));
+  console.log(finishPassword(leftOver));
+
+  password1 = makePassword(perChar).concat(finishPassword(leftOver));
+  console.log(password1);
+
+  //One last randomizer of the characters for good measure
+  function randomizePassword(j) {
+    var startingPassword = j;
+    var characterArray = startingPassword.split("");
+    var finalPassword = "";
+
+    for (var i = 0; i < j.length; i++) {
+      var rand = Math.floor(Math.random() * characterArray.length);
+      finalPassword = finalPassword.concat(characterArray[rand]);
+      characterArray.splice(rand, 1);
+    }
+    return finalPassword
+  }
+  
+  password2 = randomizePassword(password1);
+  console.log(password2);
+  return password2;
 }
 
 // Get references to the #generate element
