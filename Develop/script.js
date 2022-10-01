@@ -12,12 +12,19 @@ function generatePassword() {
     var passLen = prompt("Password length must be a number between 8 and 128. How many characters do you want your password to be?");
   }
 
-  console.log(typeof passLen);
+  // identifies how many character types we need to divide the 
+  //password length by:
+  var splitBetween = 0;
+  if (passUpp) {splitBetween += 1;}
+  if (passLow) {splitBetween += 1;}
+  if (passNum) {splitBetween += 1;}
+  if (passSpe) {splitBetween += 1;}  
+  console.log(splitBetween);
+
+  var perChar = Math.floor(passLen / splitBetween);
+  console.log(perChar);
 
 
-  //TO DO Create Booleans for each character type
-
-  //TO DO Generate the password
 }
 
 // Get references to the #generate element
