@@ -25,6 +25,36 @@ function generatePassword() {
   console.log(perChar);
 
 
+
+  function randomLetter() {
+    const alphabet = "abcdefghijklmnopqrstuvwxyz";
+    return alphabet[Math.floor(Math.random() * alphabet.length)];
+  }
+  function randomSymbol() {
+    const symbols = "!@#$%^&*()<>?_+,./-="
+    return symbols[Math.floor(Math.random() * symbols.length)];
+  }
+
+  function makePassword(j) {
+    var generatedPassword = ""
+    for (i = 0; i < j; i++) {
+      if (passUpp) {
+        generatedPassword = generatedPassword.concat(randomLetter().toUpperCase());
+      }
+      if (passLow) {
+        generatedPassword = generatedPassword.concat(randomLetter());
+      }
+      if (passNum) {
+        generatedPassword = generatedPassword.concat(Math.floor(Math.random() * 10) );
+      }
+      if (passSpe) {
+        generatedPassword = generatedPassword.concat(randomSymbol());
+      }
+    }
+    return generatedPassword;
+  }
+  console.log(makePassword(perChar));
+
 }
 
 // Get references to the #generate element
